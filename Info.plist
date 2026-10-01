@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>MacTranscribe</string>
+    <key>CFBundleDisplayName</key>
+    <string>MacTranscribe</string>
+    <key>CFBundleExecutable</key>
+    <string>MacTranscribe</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.allan.mactranscribe</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>13.0</string>
+    <key>LSUIElement</key>
+    <true/>
+    <key>NSHighResolutionCapable</key>
+    <true/>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>O MacTranscribe grava sua voz para transcrevê-la em texto.</string>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>O MacTranscribe devolve o foco ao app anterior para colar o texto.</string>
+</dict>
+</plist>
