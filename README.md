@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/hero_banner.png" alt="MacTranscribe: atalho global, sua voz vira texto no cursor" width="640">
+</p>
+
 # MacTranscribe
 
 App de barra de menus para macOS: atalho global → grava a voz → transcreve com a API da
