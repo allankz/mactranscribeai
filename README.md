@@ -1,13 +1,14 @@
-<p align="center">
-  <img src="assets/hero_banner.png" alt="MacTranscribe: atalho global, sua voz vira texto no cursor" width="640">
-</p>
+![MacTranscribe: press a global shortcut and your voice becomes text at the cursor](assets/hero_banner.png)
 
 # MacTranscribe
 
-App de barra de menus para macOS: atalho global → grava a voz → transcreve com a API da
-OpenAI → você revisa → cola no cursor ou copia.
+macOS menu bar app: global shortcut → records your voice → transcribes it with the OpenAI
+API → you review it → pastes at the cursor or copies it.
 
-Compila **sem Xcode**, só com as Command Line Tools.
+Builds **without Xcode**, using only the Command Line Tools.
+
+> The app's interface is in Portuguese. Menu items are quoted below as they appear in the
+> app, with an English translation in parentheses.
 
 ## Build
 
@@ -16,107 +17,125 @@ Compila **sem Xcode**, só com as Command Line Tools.
 open build/MacTranscribe.app
 ```
 
-Para instalar de vez: `cp -R build/MacTranscribe.app /Applications/`
+To install it for good: `cp -R build/MacTranscribe.app /Applications/`
 
-## Uso
+## Usage
 
-| Tecla | Ação |
+| Key | Action |
 |---|---|
-| `⌥Space` | começa a gravar (em qualquer app) |
-| `⌥Space` | para e transcreve |
-| `⎋` | **aborta** — durante a gravação ou o upload, sem transcrever nem gastar API |
-| `⏎` | cola no cursor de onde você veio |
-| `⌘C` | copia para a área de transferência |
-| `⌥⏎` | quebra de linha (ao editar o texto) |
-| `⎋` | descarta |
+| `⌥Space` | starts recording (in any app) |
+| `⌥Space` | stops and transcribes |
+| `⎋` | **aborts** — during recording or upload, without transcribing or spending API credits |
+| `⏎` | pastes at the cursor of the app you came from |
+| `⌘C` | copies to the clipboard |
+| `⌥⏎` | line break (while editing the text) |
+| `⎋` | discards |
 
-O texto aparece num painel editável — dá pra corrigir antes de colar.
+The text shows up in an editable panel, so you can fix it before pasting.
 
-`⎋` existe para disparo acidental: cancela na hora, devolve o foco ao app de onde você
-veio e nada é enviado. Ele é registrado como hotkey global **apenas** enquanto há
-gravação ou upload em curso — em repouso o Esc nunca é interceptado.
+`⎋` exists for accidental triggers: it cancels right away, returns focus to the app you
+came from, and nothing is sent. It is registered as a global hotkey **only** while a
+recording or upload is in progress — when idle, Esc is never intercepted.
 
-## Permissões
+## Permissions
 
-- **Microfone** — obrigatório. O macOS pergunta na primeira gravação.
-- **Acessibilidade** — só para colar sozinho no cursor (`⏎`). Sem ela o app continua
-  funcionando: o texto vai para a área de transferência e você cola com `⌘V`.
+- **Microphone** — required. macOS asks on the first recording.
+- **Accessibility** — only needed to paste automatically at the cursor (`⏎`). Without it
+  the app still works: the text goes to the clipboard and you paste it with `⌘V`.
 
-Menu da barra → **Permissões…** mostra o estado das duas e abre os Ajustes.
+Menu bar → **Permissões…** (Permissions) shows the status of both and opens System
+Settings.
 
-## Configuração
+## Configuration
 
-Tudo pelo ícone 🎤 na barra de menus:
+Everything lives under the 🎤 icon in the menu bar:
 
-- **Chave da API** — guardada no Keychain do macOS, nunca em arquivo.
-- **Atalho** — presets (`⌥Space`, `⌃⌥D`, `⌃⌥⌘Space`, `⌃⌥V`, `F13`) ou **Personalizar…**,
-  que grava qualquer combinação e avisa na hora se ela colide com o sistema.
-- **Modelo** — `gpt-4o-transcribe` (padrão), `gpt-4o-mini-transcribe`, `whisper-1`.
-- **Idioma** — travar em Português melhora precisão e velocidade.
-- **Vocabulário / contexto** — nomes e jargão que o modelo costuma errar.
-- **Traduzir para inglês** — depois de transcrever, faz **uma** passada de tradução
-  (`/v1/chat/completions`, `temperature: 0`) e mostra o texto já em inglês. O prompt é
-  estrito: só traduz, não reescreve nem resume, e preserva nomes próprios, números e
-  termos técnicos. Se a tradução falhar, o painel abre com o texto original em vez de
-  perder o que você falou.
-- **Colar sem revisar** — pula o painel e cola direto.
+- **API key** — stored in the macOS Keychain, never in a file.
+- **Shortcut** — presets (`⌥Space`, `⌃⌥D`, `⌃⌥⌘Space`, `⌃⌥V`, `F13`) or **Personalizar…**
+  (Customize), which records any combination and warns you immediately if it collides
+  with a system shortcut.
+- **Model** — `gpt-4o-transcribe` (default), `gpt-4o-mini-transcribe`, `whisper-1`.
+- **Language** — pinning a language (e.g. Portuguese) improves accuracy and speed.
+- **Vocabulary / context** — names and jargon the model tends to get wrong.
+- **Translate to English** — after transcribing, runs **one** translation pass
+  (`/v1/chat/completions`, `temperature: 0`) and shows the text already in English. The
+  prompt is strict: it only translates, never rewrites or summarizes, and preserves proper
+  names, numbers and technical terms. If the translation fails, the panel opens with the
+  original text instead of losing what you said.
+- **Paste without review** — skips the panel and pastes directly.
 
-## Custo
+## Cost
 
-Áudio é enviado em AAC 16 kHz mono (~4 KB/s), então o upload é rápido.
+Audio is sent as AAC 16 kHz mono (~4 KB/s), so uploads are fast.
 
-| Modelo | Preço |
+| Model | Price |
 |---|---|
-| `gpt-4o-mini-transcribe` | ~US$ 0,003/min |
-| `whisper-1` | US$ 0,006/min |
-| `gpt-4o-transcribe` | ~US$ 0,006/min |
+| `gpt-4o-mini-transcribe` | ~US$ 0.003/min |
+| `whisper-1` | US$ 0.006/min |
+| `gpt-4o-transcribe` | ~US$ 0.006/min |
 
-A tradução usa `gpt-4o-mini` (~150 tokens por frase curta, custo desprezível). Para
-trocar de modelo sem recompilar:
+Translation uses `gpt-4o-mini` (~150 tokens per short sentence, negligible cost). To
+switch models without rebuilding:
 
 ```bash
 defaults write com.allan.mactranscribe translationModel gpt-4.1-mini
 ```
 
-## Estrutura
+## Structure
 
 ```
 Sources/
-  main.swift            entrada (LSUIElement, sem Dock)
-  AppDelegate.swift     máquina de estados + menu da barra
-  HotKeyManager.swift   atalho global via Carbon (não exige Acessibilidade)
-  Recorder.swift        AVAudioRecorder + medidor de nível
-  Transcriber.swift     multipart POST para /v1/audio/transcriptions
-  ReviewPanel.swift     painel de revisão editável
-  RecordingHUD.swift    HUD flutuante durante a gravação
-  Paster.swift          clipboard + CGEvent ⌘V no app anterior
-  Keychain.swift        chave da API no Keychain
-  Config.swift          preferências (UserDefaults)
+  main.swift            entry point (LSUIElement, no Dock icon)
+  AppDelegate.swift     state machine + menu bar menu
+  HotKeyManager.swift   global shortcut via Carbon (no Accessibility required)
+  HotKeyRecorder.swift  records a custom shortcut
+  SystemHotKeys.swift   detects collisions with macOS-reserved shortcuts
+  Recorder.swift        AVAudioRecorder + level meter
+  Transcriber.swift     multipart POST to /v1/audio/transcriptions
+  Translator.swift      optional translation pass via /v1/chat/completions
+  ReviewPanel.swift     editable review panel
+  RecordingHUD.swift    floating HUD while recording
+  Paster.swift          clipboard + CGEvent ⌘V into the previous app
+  Keychain.swift        API key in the Keychain
+  Config.swift          preferences (UserDefaults)
 ```
 
-## Atalhos reservados pelo macOS
+## Shortcuts reserved by macOS
 
-Cuidado ao escolher um atalho: `RegisterEventHotKey` **retorna `noErr` mesmo para
-combinações que o macOS já reservou**. O sistema captura a tecla antes de ela chegar em
-qualquer app, então o registro "dá certo" e o atalho simplesmente nunca dispara — sem
-nenhum erro.
+Be careful when picking a shortcut: `RegisterEventHotKey` **returns `noErr` even for
+combinations macOS has already reserved**. The system captures the key before it reaches
+any app, so registration "succeeds" and the shortcut simply never fires — with no error
+at all.
 
-Por isso `⌃⌥Space` não serve: é *"trocar para a próxima fonte de entrada"*, ligado por
-padrão em qualquer Mac com mais de um layout de teclado.
+That's why `⌃⌥Space` doesn't work: it's *"Select next source in Input menu"*, enabled by
+default on any Mac with more than one keyboard layout.
 
-Como não dá para detectar isso pela API, [SystemHotKeys.swift](Sources/SystemHotKeys.swift)
-lê `~/Library/Preferences/com.apple.symbolichotkeys.plist` e compara keycode + modificadores
-com os atalhos ativos do sistema. O app avisa no boot, marca `⚠︎` no menu e bloqueia o
-botão Salvar no gravador de atalhos.
+Since the API can't detect this, [SystemHotKeys.swift](Sources/SystemHotKeys.swift) reads
+`~/Library/Preferences/com.apple.symbolichotkeys.plist` and compares keycode + modifiers
+against the system's active shortcuts. The app warns at launch, marks the entry with `⚠︎`
+in the menu, and disables the Save button in the shortcut recorder.
 
-Para inspecionar a lista você mesmo:
+To inspect the list yourself:
 
 ```bash
 plutil -convert xml1 -o - ~/Library/Preferences/com.apple.symbolichotkeys.plist | grep -A8 "<key>61</key>"
 ```
 
-## Nota sobre assinatura ad-hoc
+## Code signing
 
-O app é assinado com `codesign -s -`. A cada rebuild a assinatura muda, e o macOS pode
-pedir as permissões de novo. Se isso incomodar, use uma conta de desenvolvedor Apple e
-troque `-` pela sua identidade em `build.sh`.
+With an ad-hoc signature (`codesign -s -`), macOS ties the Accessibility permission to the
+binary's hash, so every rebuild orphans the authorization and the app keeps asking for it
+again.
+
+To avoid that, run once:
+
+```bash
+./setup-signing.sh
+```
+
+It creates a self-signed certificate, "MacTranscribe Local Dev", in your login keychain,
+trusted **only** for code signing. From then on `build.sh` signs with it automatically
+and the permission survives rebuilds. The certificate never leaves your machine. To undo:
+`./setup-signing.sh --remove`.
+
+Without it, `build.sh` falls back to ad-hoc signing.
